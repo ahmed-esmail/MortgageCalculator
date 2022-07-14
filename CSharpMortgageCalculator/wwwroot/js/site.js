@@ -2,3 +2,14 @@
 // for details on configuring this project to bundle and minify static web assets.
 
 // Write your JavaScript code.
+var $form = $("#loanForm");
+var $submitbutton = $("#calBtn");
+
+$form.on("blur", "input", () => {
+  if ($form.valid()) {
+    $submitbutton.removeAttr("disabled");   
+  } else {
+    $submitbutton.attr("disabled", "disabled");
+  }
+});
+

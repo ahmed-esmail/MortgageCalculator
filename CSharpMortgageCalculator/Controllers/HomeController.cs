@@ -43,9 +43,17 @@ namespace CSharpMortgageCalculator.Controllers
     [AutoValidateAntiforgeryToken]
     public IActionResult App([FromForm]Loan loan)
     {
+      if (ModelState.IsValid)
+      {
       // calculate the Loan
       var calLoan = LoanHelper.GetPayments(loan);
       return View(calLoan);
+
+      }
+      else
+      {
+        return RedirectToAction("error");
+      }
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
