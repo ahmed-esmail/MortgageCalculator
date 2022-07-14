@@ -1,8 +1,11 @@
-﻿namespace CSharpMortgageCalculator.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace CSharpMortgageCalculator.Models
 {
   public class LoanPayment
   {
     public int Month { get; set; }
+    [DisplayFormat(DataFormatString ="{0:C0}",ApplyFormatInEditMode = true)]
     public decimal Payment { get; set; }
     public decimal MonthlyPrincipal { get; set; }
     public decimal MonthlyInterest { get; set; }

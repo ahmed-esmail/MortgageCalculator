@@ -1,4 +1,5 @@
-﻿using CSharpMortgageCalculator.Models;
+﻿using CSharpMortgageCalculator.Helpers;
+using CSharpMortgageCalculator.Models;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
@@ -22,18 +23,29 @@ namespace CSharpMortgageCalculator.Controllers
     {
       return View();
     }
-
+    [HttpGet]
     public IActionResult App()
     {
-      Loan loan = new();
-      loan.Payment = 0.0m;
-      loan.TotalInterest = 0.0m;
-      loan.TotalCost = 0.0m;
-      loan.Rate = 3.5m;
-      loan.Amount = 150000m;
-      loan.Term = 60;
+      Loan loan = new()
+      {
+        Payment = 0.0m,
+        TotalInterest = 0.0m,
+        TotalCost = 0.0m,
+        Rate = 3.5m,
+        Amount = 15000m,
+        Term = 60
+      };
 
       return View(loan);
+    }
+
+    [HttpPost]
+    [AutoValidateAntiforgeryToken]
+    public IActionResult App([FromForm]Loan loan)
+    {
+      // calculate the Loan
+      var calLoan = LoanHelper.GetPayments(loan);
+      return View(calLoan);
     }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
